@@ -1,8 +1,8 @@
 version: 0.2
 
 env:
-  parameter-store:
-    RAILS_MASTER_KEY: /beatfit-web/development/RAILS_MASTER_KEY
+  # parameter-store:
+  #   RAILS_MASTER_KEY: /beatfit-web/development/RAILS_MASTER_KEY
   secrets-manager:
     # DOCKERHUB_USER: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:${作成したシークレット名}:username
     # DOCKERHUB_PASS: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:${作成したシークレット名}:password
@@ -20,7 +20,7 @@ phases:
       - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
   build:
     commands:
-      - docker build --build-arg RAILS_MASTER_KEY=$RAILS_MASTER_KEY -f ./ecr/Dockerfile -t $IMAGE_REPO_NAME:$IMAGE_TAG . # イメージの作成とタグ付け
+      - docker build -f ./ecr/Dockerfile -t $IMAGE_REPO_NAME:$IMAGE_TAG . # イメージの作成とタグ付け
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
   post_build:
