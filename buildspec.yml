@@ -7,21 +7,20 @@ env:
     # DOCKERHUB_USER: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:${作成したシークレット名}:username
     # DOCKERHUB_PASS: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:${作成したシークレット名}:password
     # ${作成したシークレット名}は各自の環境のものに置き換え
-    DOCKERHUB_INFO: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:BFW/PRACTICE/DOCKERHUB
     DOCKERHUB_USER: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:BFW/PRACTICE/DOCKERHUB:username
     DOCKERHUB_PASS: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:BFW/PRACTICE/DOCKERHUB:password
 
 phases:
   pre_build:
     commands:
-      - echo Logging in to Docker Hub...
-      - echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin # DockerHubへログイン
+      # - echo Logging in to Docker Hub...
+      # - echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin # DockerHubへログイン
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com # ECRへログイン
       - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
   build:
     commands:
-      - docker build -f ./Dockerfile -t $IMAGE_REPO_NAME:$IMAGE_TAG . # イメージの作成とタグ付け
+      - docker build -f ./Dockerfile -t $IMAGE_REPO_NAME:$IMAGE_TAG --platform linux/amd64 . # イメージの作成とタグ付け
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
   post_build:
