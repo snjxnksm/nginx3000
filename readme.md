@@ -6,7 +6,7 @@
 
 ```
 docker build -t nginx-3000 .
-docker run -d -p 8080:3000 nginx-3000
+docker run -d -p 3000:3000 nginx-3000
 ```
 
 コマンド例は、aws ecrのコンソールで出力される
