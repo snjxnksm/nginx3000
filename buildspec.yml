@@ -14,6 +14,8 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Docker Hub...
+      - echo $AWS_DEFAULT_REGION 
+      - echo $AWS_ACCOUNT_ID 
       - echo $DOCKERHUB_USER 
       - echo $DOCKERHUB_PASS 
       - echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin # DockerHubへログイン
