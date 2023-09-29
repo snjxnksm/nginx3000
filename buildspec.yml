@@ -7,6 +7,7 @@ env:
     # DOCKERHUB_USER: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:${作成したシークレット名}:username
     # DOCKERHUB_PASS: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:${作成したシークレット名}:password
     # ${作成したシークレット名}は各自の環境のものに置き換え
+    DOCKERHUB_INFO: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:BFW/PRACTICE/DOCKERHUB
     DOCKERHUB_USER: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:BFW/PRACTICE/DOCKERHUB:username
     DOCKERHUB_PASS: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:BFW/PRACTICE/DOCKERHUB:password
 
@@ -16,6 +17,7 @@ phases:
       - echo Logging in to Docker Hub...
       - echo $AWS_DEFAULT_REGION 
       - echo $AWS_ACCOUNT_ID 
+      - echo $DOCKERHUB_INFO 
       - echo $DOCKERHUB_USER 
       - echo $DOCKERHUB_PASS 
       - echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin # DockerHubへログイン
