@@ -1,14 +1,14 @@
 version: 0.2
 
 env:
-  # parameter-store:
+  parameter-store:
   #   RAILS_MASTER_KEY: /beatfit-web/development/RAILS_MASTER_KEY
   secrets-manager:
     # DOCKERHUB_USER: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:${作成したシークレット名}:username
     # DOCKERHUB_PASS: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:${作成したシークレット名}:password
     # ${作成したシークレット名}は各自の環境のものに置き換え
-    DOCKERHUB_USER: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:BFW/PRACTICE/DOCKERHUB:username
-    DOCKERHUB_PASS: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:BFW/PRACTICE/DOCKERHUB:password
+    # DOCKERHUB_USER: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:BFW/PRACTICE/DOCKERHUB:username
+    # DOCKERHUB_PASS: arn:aws:secretsmanager:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:secret:BFW/PRACTICE/DOCKERHUB:password
 
 phases:
   pre_build:
